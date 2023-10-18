@@ -129,6 +129,15 @@ static inline void tlb_remove_page_size(struct mmu_gather *tlb,
 
 static inline void tlb_change_page_size(struct mmu_gather *tlb, unsigned int page_size)
 {
+
+static inline void
+tlb_flush_pmd_range(struct mmu_gather *tlb, unsigned long address,
+		    unsigned long size)
+{
+	if (tlb->start > address)
+		tlb->start = address;
+	if (tlb->end < address + size)
+		tlb->end = address + size;
 }
 
 #define pte_free_tlb(tlb, ptep, addr)	pte_free((tlb)->mm, ptep)
