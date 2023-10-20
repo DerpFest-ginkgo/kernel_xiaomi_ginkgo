@@ -5,7 +5,7 @@
 
 SECONDS=0 # builtin bash timer
 ZIPNAME="QuicksilveRV2-ginkgo-$(date '+%Y%m%d-%H%M').zip"
-TC_DIR="$HOME/tc/clang-r498229b"
+TC_DIR="$HOME/tc/ZyC-clang"
 GCC_64_DIR="$HOME/tc/aarch64-linux-android-4.9"
 GCC_32_DIR="$HOME/tc/arm-linux-androideabi-4.9"
 AK3_DIR="$HOME/AnyKernel3"
@@ -15,13 +15,8 @@ export PATH="$TC_DIR/bin:$PATH"
 export KBUILD_BUILD_USER="enn"
 export KBUILD_BUILD_HOST="enprytna"
 
-if ! [ -d "${TC_DIR}" ]; then
-echo "Clang not found! Cloning to ${TC_DIR}..."
-if ! git clone --depth=1 -b main https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 ${TC_DIR}; then
-echo "Cloning failed! Aborting..."
-exit 1
-fi
-fi
+mkdir -p $HOME/tc/ZyC-clang
+wget -c https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20231017-release/Clang-18.0.0-20231017.tar.gz && tar -xzf Clang-18.0.0-20231017.tar.gz -C $HOME/tc/ZyC-clang
 
 if ! [ -d "${GCC_64_DIR}" ]; then
 echo "GCC_64 not found! Cloning to ${GCC_64_DIR}..."
